@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Supprimer le projet : {{ project.title }}</h1>
+
+        <div class="alert alert-warning">
+            <strong>Attention !</strong> Cette action est irréversible. Si vous supprimez ce projet, toutes les informations seront perdues.
+        </div>
+
+        <form action="{{ path('project_delete', {'id': project.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce projet ?');">
+            <div class="text-center">
+                <button type="submit" class="btn btn-danger btn-lg">Supprimer le projet</button>
+                <a href="{{ path('project_list') }}" class="btn btn-secondary btn-lg">Annuler</a>
+            </div>
+        </form>
+    </div>
+{% endblock %}

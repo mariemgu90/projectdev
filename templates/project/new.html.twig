@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Publier un nouveau projet</h1>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+
+        {{ form_start(form) }}
+        <div class="card p-4 shadow-lg">
+            <div class="form-group mb-4">
+                <label for="title" class="font-weight-bold">Titre du projet</label>
+                {{ form_widget(form.title, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le titre du projet'}}) }}
+                <div class="text-danger mt-1">{{ form_errors(form.title) }}</div>
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="description" class="font-weight-bold">Description</label>
+                {{ form_widget(form.description, {'attr': {'class': 'form-control', 'rows': '5', 'placeholder': 'Décrivez le projet en détail'}}) }}
+                <div class="text-danger mt-1">{{ form_errors(form.description) }}</div>
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="budget" class="font-weight-bold">Budget</label>
+                {{ form_widget(form.budget, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le budget en euros'}}) }}
+                <div class="text-danger mt-1">{{ form_errors(form.budget) }}</div>
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="deadline" class="font-weight-bold">Date limite</label>
+                {{ form_widget(form.deadline, {'attr': {'class': 'form-control', 'placeholder': 'Sélectionnez une date limite'}}) }}
+                <div class="text-danger mt-1">{{ form_errors(form.deadline) }}</div>
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="criteria" class="font-weight-bold">Critères</label>
+                {{ form_widget(form.criteria, {'attr': {'class': 'form-control', 'placeholder': 'Indiquez les critères de sélection'}}) }}
+                <div class="text-danger mt-1">{{ form_errors(form.criteria) }}</div>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-success btn-lg shadow-sm">Publier le projet</button>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

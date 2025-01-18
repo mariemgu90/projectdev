@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">{{ project.title }}</h1>
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Description</h5>
+                <p class="card-text">{{ project.description }}</p>
+                <h5 class="card-title">Budget</h5>
+                <p class="card-text">{{ project.budget }}€</p>
+                <h5 class="card-title">Date limite</h5>
+                <p class="card-text">{{ project.deadline|date('d/m/Y') }}</p>
+
+                <div class="d-flex justify-content-between">
+                    <a href="{{ path('project_edit', {'id': project.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+                    <a href="{{ path('project_delete', {'id': project.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

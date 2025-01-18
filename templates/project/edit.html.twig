@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Modifier le projet : {{ project.title }}</h1>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+
+        {{ form_start(form) }}
+        <div class="card p-4 shadow-lg" style="max-width: 800px; margin: 0 auto;">
+
+            <!-- Titre -->
+            <div class="form-group mb-3">
+                <label for="title" class="font-weight-bold">Titre du projet</label>
+                {{ form_widget(form.title, {'attr': {'class': 'form-control', 'placeholder': 'Modifiez le titre du projet'}}) }}
+                <div class="text-danger mt-1">{{ form_errors(form.title) }}</div>
+            </div>
+
+            <!-- Description -->
+            <div class="form-group mb-3">
+                <label for="description" class="font-weight-bold">Description</label>
+                {{ form_widget(form.description, {'attr': {'class': 'form-control', 'rows': '4', 'placeholder': 'Modifiez la description du projet'}}) }}
+                <div class="text-danger mt-1">{{ form_errors(form.description) }}</div>
+            </div>
+
+            <!-- Budget -->
+            <div class="form-group mb-3">
+                <label for="budget" class="font-weight-bold">Budget</label>
+                {{ form_widget(form.budget, {'attr': {'class': 'form-control', 'placeholder': 'Modifiez le budget en euros'}}) }}
+                <div class="text-danger mt-1">{{ form_errors(form.budget) }}</div>
+            </div>
+
+            <!-- Date limite -->
+            <div class="form-group mb-3">
+                <label for="deadline" class="font-weight-bold">Date limite</label>
+                {{ form_widget(form.deadline, {'attr': {'class': 'form-control', 'placeholder': 'Sélectionnez une nouvelle date limite'}}) }}
+                <div class="text-danger mt-1">{{ form_errors(form.deadline) }}</div>
+            </div>
+
+            <!-- Critère -->
+            <div class="form-group mb-3">
+                <label for="criteria" class="font-weight-bold">Critère</label>
+                {{ form_widget(form.criteria, {'attr': {'class': 'form-control', 'placeholder': 'Modifiez les critères du projet'}}) }}
+                <div class="text-danger mt-1">{{ form_errors(form.criteria) }}</div>
+            </div>
+
+            <!-- Boutons Modifier et Annuler -->
+            <div class="d-flex justify-content-between mt-4">
+                <button type="submit" class="btn btn-success btn-lg">Mettre à jour le projet</button>
+                <a href="{{ path('project_list') }}" class="btn btn-secondary btn-lg">Annuler</a>
+            </div>
+
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

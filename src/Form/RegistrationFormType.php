@@ -53,6 +53,7 @@ class RegistrationFormType extends AbstractType
                 // Transform the array to a comma-separated string
                 return implode(', ', $rolesAsArray);
             },
+
             function ($rolesAsString) {
                 // Transform the string back to an array
                 return array_map('trim', explode(',', $rolesAsString));

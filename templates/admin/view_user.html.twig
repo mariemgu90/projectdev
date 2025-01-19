@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}View User{% endblock %}
+{% block body %}
+    <h1>Détails de l'utilisateur</h1>
+    <ul>
+        <li>Email: {{ user.email }}</li>
+        <li>Prénom: {{ user.firstName }}</li>
+        <li>Nom: {{ user.lastName }}</li>
+        <!-- Ajoutez d'autres informations ici -->
+    </ul>
+{% endblock %}

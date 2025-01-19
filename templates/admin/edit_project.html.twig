@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un projet{% endblock %}
+
+{% block body %}
+    <h1>Modifier un projet</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit">Sauvegarder</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('admin_manage_projects') }}">Retour à la gestion des projets</a>
+{% endblock %}

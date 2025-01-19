@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des freelances{% endblock %}
+
+{% block body %}
+    <h1>Gestion des freelances</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Niveau</th>
+            <th>Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for freelancer in freelancers %}
+            <tr>
+                <td>{{ freelancer.id }}</td>
+                <td>{{ freelancer.name }}</td>
+                <td>{{ freelancer.level }}</td>
+                <td>{{ freelancer.email }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_dashboard') }}">Retour au tableau de bord</a>
+{% endblock %}

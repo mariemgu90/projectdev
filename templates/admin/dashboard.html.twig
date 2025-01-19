@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de bord Admin{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Tableau de bord de l'administrateur</h1>
+
+    <div class="container mt-4">
+        <div class="row text-center">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Utilisateurs</h5>
+                        <p class="card-text">{{ totalUsers }}</p>
+                        <a href="{{ path('admin_manage_users') }}" class="btn btn-primary">Gérer les utilisateurs</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Projets</h5>
+                        <p class="card-text">{{ totalProjects }}</p>
+                        <a href="{{ path('admin_manage_projects') }}" class="btn btn-primary">Gérer les projets</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Freelances</h5>
+                        <p class="card-text">{{ totalFreelancers }}</p>
+                        <a href="{{ path('admin_manage_freelancers') }}" class="btn btn-primary">Gérer les freelances</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Paiements en attente</h5>
+                        <p class="card-text">{{ pendingPayments }}</p>
+                        <a href="{{ path('admin_manage_payments') }}" class="btn btn-primary">Gérer les paiements</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

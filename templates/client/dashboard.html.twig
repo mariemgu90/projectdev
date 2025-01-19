@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Client Dashboard{% endblock %}
+
+{% block body %}
+    <h1>Welcome to Your Client Space</h1>
+    <div>
+        <h2>Your Projects</h2>
+        <ul>
+            <li><a href="/client/projects/new">Create a New Project</a></li>
+            <li><a href="/client/projects">View Your Projects</a></li>
+            <li><a href="/client/applications">Review Applications</a></li>
+        </ul>
+    </div>
+{% endblock %}

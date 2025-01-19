@@ -4,20 +4,22 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
-use App\Repository\UserRepository;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Routing\Annotation\Route;
 
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-
-    public function register(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
-    {
+    public function register(
+        Request $request,
+        UserPasswordHasherInterface $passwordHasher,
+       EntityManagerInterface $entityManager
+    ): Response {
         // Create a new User entity
         $user = new User();
 
@@ -29,26 +31,34 @@ class RegistrationController extends AbstractController
 
         // Check if the form is submitted and valid
         if ($form->isSubmitted() && $form->isValid()) {
-            // Encode the password
+            // Hash the password
             $password = $form->get('password')->getData();
             if ($password) {
                 $hashedPassword = $passwordHasher->hashPassword($user, $password);
                 $user->setPassword($hashedPassword);
             }
 
-            // Save the user to the database
-            $entityManager->persist($user);
-            $entityManager->flush();
-            $roles = $user->getRoles();
+            try {
+                // Persist the user to the database
+                $entityManager->persist($user);
+                $entityManager->flush();
 
-            if (in_array('ROLE_CLIENT', $roles)) {
-                return $this->redirectToRoute('app_login');
-            } elseif (in_array('ROLE_FREELANCER', $roles)) {
-                return $this->redirectToRoute('app_login'); }
+                // Redirect based on the user's role
+                $roles = $user->getRoles();
+                if (in_array('ROLE_CLIENT', $roles)) {
+                    return $this->redirectToRoute('app_login'); // Or redirect to the 'client' dashboard if needed
+                } elseif (in_array('ROLE_FREELANCER', $roles)) {
+                    return $this->redirectToRoute('app_login'); // Or redirect to the 'freelancer' dashboard if needed
+                }
+
+            } catch (UniqueConstraintViolationException $e) {
+                // Handle the case when the email is already in the database
+                $this->addFlash('error', 'The email address is already in use. Please choose a different one.');
+            }
         }
 
         // Render the registration form
-        return $this->render('/Registration.html.twig', [
+        return $this->render('registration.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }

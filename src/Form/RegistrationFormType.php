@@ -44,7 +44,8 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('companyName', TextType::class, [
             'label' => 'Company Name',
-            'attr' => ['placeholder' => 'Enter your Company Name']
+            'attr' => ['placeholder' => 'Enter your Company Name',
+            'required' => false ],
         ]);
 
 

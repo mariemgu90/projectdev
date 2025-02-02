@@ -37,7 +37,13 @@ private ?float $budget = null;
 #[Assert\GreaterThan("today", message: "La date limite doit être dans le futur.")]
 private ?\DateTimeInterface $deadline = null;
 
+#[ORM\ManyToOne(targetEntity: User::class)]
+#[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
+private ?User $client = null;
 
+#[ORM\ManyToOne(targetEntity: User::class)]
+#[ORM\JoinColumn(nullable: true, onDelete: "SET NULL")]
+private ?User $freelancer = null;
 
 // Getters and Setters
 public function getId(): ?int
@@ -104,6 +110,29 @@ $this->deadline = $deadline;
 
 return $this;
 }
+    public function getClient(): ?User
+    {
+        return $this->client;
+    }
+
+    public function setClient(?User $client): self
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    public function getFreelancer(): ?User
+    {
+        return $this->freelancer;
+    }
+
+    public function setFreelancer(?User $freelancer): self
+    {
+        $this->freelancer = $freelancer;
+
+        return $this;
+    }
 
 
 }

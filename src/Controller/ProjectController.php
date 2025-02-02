@@ -23,6 +23,7 @@ class ProjectController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $project -> setClient($this->getUser());
             $entityManager->persist($project);
             $entityManager->flush();
 
@@ -39,7 +40,16 @@ class ProjectController extends AbstractController
     #[Route('/projects', name: 'project_list', methods: ['GET'])]
     public function list(EntityManagerInterface $entityManager): Response
     {
-        $projects = $entityManager->getRepository(Project::class)->findAll();
+        $user = $this->getUser();
+        $roles = $user->getRoles();
+
+        if (in_array('ROLE_CLIENT', $roles)) {
+            $projects = $entityManager->getRepository(Project::class)->findBy([
+                'client' => $user,
+            ]);
+        } elseif (in_array('ROLE_FREELANCER', $roles)) {
+            $projects = $entityManager->getRepository(Project::class)->findAll();
+        }
 
         return $this->render('project/list.html.twig', [
             'projects' => $projects,
@@ -114,4 +124,12 @@ class ProjectController extends AbstractController
         $this->addFlash('success', 'Le projet a été supprimé avec succès !');
         return $this->redirectToRoute('project_list');
     }
+
+
+
+
+
+
+
+
 }

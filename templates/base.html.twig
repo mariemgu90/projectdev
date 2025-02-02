@@ -27,6 +27,10 @@
                 <!-- Show Skill link for freelancers only -->
                 {% if is_granted('ROLE_FREELANCER') %}
                     <li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('project_list') }}"> Offres </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ path('user_applications') }}"> Mes candidatures </a>
                     </li>
                     <li class="nav-item">
@@ -34,18 +38,19 @@
                     </li>
                 {% endif %}
 
-                <!-- Show Project list link for both roles -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('project_list') }}">Projets</a>
-                </li>
 
                 <!-- Show Create Project link for clients only -->
                 {% if is_granted('ROLE_CLIENT') %}
+
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ path('project_list') }}">Mes projets</a>
+                 </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('project_new') }}">Créer un projet</a>
                     </li>
                 {% endif %}
-
+                <li class="nav-item">
                 <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
                 </li>
             {% else %}

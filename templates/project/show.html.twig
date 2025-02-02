@@ -19,7 +19,16 @@
                 <div class="d-flex justify-content-between">
                     <a href="{{ path('project_edit', {'id': project.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
                     <a href="{{ path('project_delete', {'id': project.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
-                    <a href="{{ path('apply_project', { 'projectId': project.id}) }}" class="btn btn-danger btn-sm">apply</a>
+
+                    {% if is_granted('ROLE_FREELANCER') %}
+                        <a href="{{ path('apply_project', { 'projectId': project.id}) }}" class="btn btn-danger btn-sm"> Postuler</a>
+
+                    {% elseif is_granted('ROLE_CLIENT') %}
+
+                        <a href="{{ path('Project_applications', { 'projectId': project.id}) }}" class="btn btn-danger btn-sm">Consulter la liste des candidatures</a>
+
+                    {% endif %}
+
                 </div>
             </div>
         </div>
